@@ -205,3 +205,6 @@ vendor.display.idle_time=1100
 
 #Use skiagl to for content issues
 debug.hwui.renderer=skiagl
+
+# Seamless transfer
+sys.fflag.override.settings_seamless_transfer=true
