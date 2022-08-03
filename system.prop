@@ -35,8 +35,8 @@ ro.camera.attr.detect.enable=1
 ro.camera.notify_nfc=1
 ro.camera.temperature.limit=470
 persist.vendor.camera.light_ae.enable=1
-vendor.camera.aux.packagelist=android
-persist.vendor.camera.privapp.list=org.codeaurora.snapcam,com.GoogleCamera.Wichaya,com.googleCamera.Wichaya8
+vendor.camera.aux.packagelist=com.google.android.GoogleCamera,org.codeaurora.snapcam
+persist.vendor.camera.privapp.list=com.google.android.GoogleCamera,org.codeaurora.snapcam
 
 # CNE
 persist.vendor.cne.feature=1
