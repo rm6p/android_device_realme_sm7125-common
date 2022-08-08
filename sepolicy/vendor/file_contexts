@@ -8,6 +8,9 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.3-service\.realme_sm7125    u:object_r:hal_fingerprint_default_exec:s0
 /(vendor|odm)/bin/hw/vendor\.oplus\.hardware\.biometrics\.fingerprint@2\.1-service              u:object_r:hal_fingerprint_default_exec:s0
 
+# FPS Info
+/sys/module/primary_display/parameters/display_framerate_main      u:object_r:sysfs_fpsinfo:s0
+
 # Light Hal
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service\.realme_sm7125                      u:object_r:hal_light_default_exec:s0
 
