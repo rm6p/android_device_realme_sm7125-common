@@ -59,3 +59,7 @@ service prop-adap-main-gsi /vendor/bin/self-init gsimain
     oneshot
     override
     disabled
+
+on property:vendor.post_boot.parsed=1
+    # Setup foreground cpuset for display composer.
+    write /dev/cpuset/foreground/cpus 0-5
