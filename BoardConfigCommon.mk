@@ -248,3 +248,6 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Inherit proprietary blobs
 -include vendor/realme/sm7125-common/BoardConfigVendor.mk
+
+# Include repo to sign
+-include vendor/lineage-priv/keys/keys.mk
