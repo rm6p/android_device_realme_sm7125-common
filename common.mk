@@ -630,3 +630,8 @@ PRODUCT_PACKAGES += \
     android.hardware.health@2.0.vendor \
     android.hardware.health@2.1.vendor \
     android.hardware.power.stats@1.0.vendor
+
+#Missing Libs
+PRODUCT_PACKAGES += \
+    libpng.vendor \
+    libsqlite.vendor
