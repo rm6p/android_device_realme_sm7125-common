@@ -12,9 +12,9 @@
     </hal>
     
     <!-- Bluetooth Audio HAL -->
-    <hal format="hidl">
+   <hal format="aidl">
         <name>android.hardware.bluetooth.audio</name>
-        <version>4.0</version>
+        <version>4</version>
         <optional>false</optional>
         <interface>
             <name>IBluetoothAudioProviderFactory</name>
@@ -23,9 +23,9 @@
     </hal>
 
     <!-- Media CAS HAL -->
-    <hal format="hidl">
+    <hal format="aidl">
         <name>android.hardware.cas</name>
-        <version>1.0</version>
+        <version>1</version>
         <optional>false</optional>
         <interface>
             <name>IMediaCasService</name>
@@ -45,9 +45,9 @@
     </hal>
 
     <!-- Power HAL -->
-    <hal format="hidl">
+    <hal format="aidl">
         <name>android.hardware.power</name>
-        <version>4.0</version>
+        <version>4</version>
         <optional>false</optional>
         <interface>
             <name>IPower</name>
@@ -56,9 +56,9 @@
     </hal>
 
     <!-- Vibrator HAL -->
-    <hal format="hidl">
+    <hal format="aidl">
         <name>android.hardware.vibrator</name>
-        <version>2.0</version>
+        <version>2</version>
         <optional>false</optional>
         <interface>
             <name>IVibrator</name>
@@ -67,9 +67,9 @@
     </hal>
 
     <!-- WiFi HAL -->
-    <hal format="hidl">
+    <hal format="aidl">
         <name>android.hardware.wifi</name>
-        <version>2.0</version>
+        <version>2</version>
         <optional>false</optional>
         <interface>
             <name>IWifi</name>
@@ -78,9 +78,9 @@
     </hal>
 
     <!-- WiFi Hostapd HAL -->
-    <hal format="hidl">
+    <hal format="aidl">
         <name>android.hardware.wifi.hostapd</name>
-        <version>2.0</version>
+        <version>2</version>
         <optional>false</optional>
         <interface>
             <name>IHostapd</name>
@@ -89,9 +89,9 @@
     </hal>
 
     <!-- WiFi Supplicant HAL -->
-    <hal format="hidl">
+    <hal format="aidl">
         <name>android.hardware.wifi.supplicant</name>
-        <version>3.0</version>
+        <version>3</version>
         <optional>false</optional>
         <interface>
             <name>ISupplicant</name>
