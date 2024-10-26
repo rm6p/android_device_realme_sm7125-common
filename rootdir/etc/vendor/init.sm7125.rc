@@ -68,3 +68,15 @@ on post-fs-data
 
 on property:sys.boot_completed=1
     stop debug_logcat
+
+# Initialize Gatekeeper service
+service gatekeeper /system/bin/gatekeeperd
+    class core
+    user system
+    group system
+
+# Initialize fingerprint HAL service
+service fingerprintd /system/bin/fingerprintd
+    class hal
+    user system
+    group system
