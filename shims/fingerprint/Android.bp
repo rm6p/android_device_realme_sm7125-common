@@ -1,0 +1,13 @@
+// Android.bp
+
+cc_library_shared {
+    name: "libfingerprint_shim",
+    srcs: ["fingerprint_shim.cpp"],
+    shared_libs: [
+        "libhardware",  // Only necessary library for hardware access
+    ],
+    cflags: [
+        "-fPIC",
+    ],
+    vendor: true,
+}

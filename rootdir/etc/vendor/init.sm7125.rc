@@ -80,3 +80,11 @@ service fingerprintd /system/bin/fingerprintd
     class hal
     user system
     group system
+
+#Fingerprint shim
+service fingerprint /vendor/bin/hw/android.hardware.biometrics.fingerprint-service.oplus
+    class late_start
+    user system
+    group system
+    capabilities NET_BIND_SERVICE
+    setenv LD_PRELOAD /vendor/lib64/libfingerprint_shim.so

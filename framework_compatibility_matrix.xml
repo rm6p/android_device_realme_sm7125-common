@@ -180,13 +180,25 @@
     <!-- Oplus Biometrics Fingerprint HAL -->
     <hal format="hidl">
         <name>vendor.oplus.hardware.biometrics.fingerprint</name>
-        <version>2.1</version>
-        <optional>true</optional>
+        <version>2.0-3</version>
+        <optional>false</optional>
         <interface>
             <name>IBiometricsFingerprint</name>
             <instance>default</instance>
         </interface>
     </hal>
+
+    <hal format="hidl">
+        <name>vendor.oplus.hardware.biometrics.fingerprintservice</name>
+        <version>1.0</version>
+        <optional>false</optional>
+        <interface>
+            <name>IFingerprintHalService</name>
+            <instance>default</instance>
+            <instance>fingerprintservice</instance>
+        </interface>
+    </hal>
+
 
     <!-- Oplus Fingerprint Pay HAL -->
     <hal format="hidl">
@@ -244,7 +256,6 @@
             <instance>oplus_slot2</instance>
         </interface>
     </hal>
-	
 	<hal format="hidl" optional="true">
 	    <name>android.hardware.gatekeeper</name>
 	    <version>1.0</version>
@@ -253,4 +264,12 @@
 	        <instance>default</instance>
 	    </interface>
 	</hal>
+        <hal format="aidl" optional="false">
+            <name>android.hardware.biometrics.fingerprint</name>
+            <version>5</version>
+            <interface>
+                <name>IFingerprint</name>
+                <instance>default</instance>
+            </interface>
+        </hal>
 </compatibility-matrix>

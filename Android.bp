@@ -1,6 +1,10 @@
 soong_namespace {
 }
 
+subdirs = [
+    "shims/fingerprint",
+]
+
 cc_library_shared {
     name: "libprotobuf-cpp-lite-3.9.1",
     shared_libs: ["libprotobuf-cpp-full-3.9.1-vendorcompat"],
