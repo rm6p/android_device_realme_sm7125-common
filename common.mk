@@ -435,6 +435,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.vibrator.service
 
+# Vendor service manager
+PRODUCT_PACKAGES += \
+    vndservicemanager
+
 # VNDK
 PRODUCT_PACKAGES += \
     vndk_package
