@@ -227,8 +227,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.realme_sm7125
 
-#Lawnchair
-$(call inherit-product-if-exists, vendor/lawnchair/lawnchair.mk)
+#libcrypto
+PRODUCT_PACKAGES += \
+    libcrypto-v33
+
+    prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libutils.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libutils-v30.so
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
