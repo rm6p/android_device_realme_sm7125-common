@@ -216,10 +216,6 @@ Return<RequestStatus> BiometricsFingerprint::authenticate(uint64_t operationId, 
 }
 
 Return<bool> BiometricsFingerprint::isUdfps(uint32_t) {
-    if (get(PRJNAME_PATH, "") == "206B1") {
-        return true;
-    }
-    LOG(INFO) << "sagar : device : " << get(PRJNAME_PATH, "");
     return false;
 }
 
@@ -240,9 +236,6 @@ Return<void> BiometricsFingerprint::onShowUdfpsOverlay() {
 }
 
 Return<void> BiometricsFingerprint::onFingerUp() {
-    if (isUdfps(0)) {
-        set(FP_PRESS_PATH, 0);
-    }
     return Void();
 }
 
@@ -251,10 +244,6 @@ Return<bool> BiometricsFingerprint::isDozeMode() {
 }
 
 Return<void> BiometricsFingerprint::onFingerDown(uint32_t, uint32_t, float, float) {
-    if (isUdfps(0)) {
-        set(DIMLAYER_PATH, 1);
-        set(FP_PRESS_PATH, 1);
-    }
     return Void();
 }
 
