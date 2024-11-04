@@ -180,8 +180,8 @@
     <!-- Oplus Biometrics Fingerprint HAL -->
     <hal format="hidl">
         <name>vendor.oplus.hardware.biometrics.fingerprint</name>
-        <version>2.1</version>
-        <optional>true</optional>
+        <version>2.1-3</version>
+        <optional>false</optional>
         <interface>
             <name>IBiometricsFingerprint</name>
             <instance>default</instance>
