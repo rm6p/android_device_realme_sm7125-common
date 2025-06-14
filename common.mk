@@ -25,6 +25,9 @@ PRODUCT_PACKAGES += \
 # API
 PRODUCT_SHIPPING_API_LEVEL := 29
 
+# Add common definitions for QualcommAdd commentMore actions
+$(call inherit-product, hardware/qcom-caf/common/common.mk)
+
 # Audio
 PRODUCT_PACKAGES += \
     libvolumelistener
