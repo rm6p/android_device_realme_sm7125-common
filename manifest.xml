@@ -1,4 +1,5 @@
-<manifest version="2.0" type="device" target-level="4">
+<manifest version="2.0" type="device" target-level="5">
+<kernel target-level="5"/>
     <hal format="hidl">
         <name>android.hardware.audio</name>
         <transport>hwbinder</transport>
@@ -197,6 +198,7 @@
             <name>IBiometricsFingerprint</name>
             <instance>default</instance>
         </interface>
+    <fqname>@2.1::IBiometricsFingerprint/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.oplus.hardware.biometrics.fingerprintpay</name>

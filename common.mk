@@ -10,9 +10,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit proprietary targets
 $(call inherit-product-if-exists, vendor/realme/sm7125-common/sm7125-common-vendor.mk)
 
-# Enable updating of APEXes
-$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
-
 # Setup dalvik vm configs
 $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 
@@ -150,6 +147,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 # Fastbootd
 PRODUCT_PACKAGES += \
     fastbootd
+
+# Enable whole-program R8 Java optimizations for SystemUI and system_server
+SYSTEM_OPTIMIZE_JAVA := true
+SYSTEMUI_OPTIMIZE_JAVA := true
 
 # Fingerprint
 PRODUCT_PACKAGES += \
@@ -377,6 +378,8 @@ PRODUCT_SOONG_NAMESPACES += \
 # Speed profile services and wifi-service to reduce RAM and storage
 PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
 PRODUCT_ALWAYS_PREOPT_EXTRACTED_APK := true
+PRODUCT_USE_PROFILE_FOR_BOOT_IMAGE := true
+PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := frameworks/base/config/boot-image-profile.txt
 
 # Telephony
 PRODUCT_PACKAGES += \
@@ -428,6 +431,10 @@ PRODUCT_COPY_FILES += \
 # Vibrator
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.vibrator.service
+
+# Vendor service manager
+PRODUCT_PACKAGES += \
+    vndservicemanager
 
 # VNDK
 PRODUCT_PACKAGES += \
@@ -630,3 +637,8 @@ PRODUCT_PACKAGES += \
     android.hardware.health@2.0.vendor \
     android.hardware.health@2.1.vendor \
     android.hardware.power.stats@1.0.vendor
+
+#Missing Libs
+PRODUCT_PACKAGES += \
+    libpng.vendor \
+    libsqlite.vendor

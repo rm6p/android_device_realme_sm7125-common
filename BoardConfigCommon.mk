@@ -94,8 +94,25 @@ BOARD_HAS_QCA_FM_SOC := cherokee
 BOARD_HAVE_QCOM_FM := true
 
 # HIDL
-DEVICE_MANIFEST_FILE := $(COMMON_PATH)/manifest.xml
-DEVICE_MATRIX_FILE := $(COMMON_PATH)/compatibility_matrix.xml
+#DEVICE_MANIFEST_FILE += $(COMMON_PATH)/manifest.xml
+#DEVICE_MATRIX_FILE += $(COMMON_PATH)/compatibility_matrix.xml
+#DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
+#    hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
+#    vendor/lineage/config/device_framework_matrix.xml \
+#    $(COMMON_PATH)/framework_compatibility_matrix.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
+    hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
+    hardware/qcom-caf/common/vendor_framework_compatibility_matrix_legacy.xml \
+    vendor/lineage/config/device_framework_matrix.xml \
+    $(COMMON_PATH)/framework_compatibility_matrix.xml
+
+
+DEVICE_MANIFEST_FILE := \
+    $(COMMON_PATH)/manifest.xml
+
+DEVICE_MATRIX_FILE := \
+    hardware/qcom-caf/common/compatibility_matrix.xml
+
 
 ODM_MANIFEST_SKUS += nfc
 ODM_MANIFEST_NFC_FILES := $(COMMON_PATH)/manifest_nfc.xml
@@ -124,21 +141,14 @@ TARGET_KERNEL_ADDITIONAL_FLAGS := \
 TARGET_KERNEL_SOURCE := kernel/realme/sm7125
 TARGET_KERNEL_CONFIG := atoll_defconfig
 KERNEL_SUPPORTS_LLVM_TOOLS := true
-TARGET_KERNEL_OPTIONAL_LD := true
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-gnu-
-TARGET_KERNEL_CROSS_COMPILE_ARM32_PREFIX := arm-linux-gnueabi-
-TARGET_KERNEL_ADDITIONAL_FLAGS += HOSTCFLAGS="-fuse-ld=lld -Wno-unused-command-line-argument"
 
-# Clang
-TARGET_KERNEL_CLANG_VERSION := proton
-KERNEL_TOOLCHAIN_PATH := $(shell pwd)/prebuilts/clang/host/linux-x86/clang-proton
-
+#Kernel Cmdline
 BOARD_KERNEL_CMDLINE += androidboot.console=ttyMSM0
 BOARD_KERNEL_CMDLINE += androidboot.fstab_suffix=default
 BOARD_KERNEL_CMDLINE += androidboot.hardware=qcom
 BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery
 BOARD_KERNEL_CMDLINE += androidboot.memcg=1
-#BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+###BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_CMDLINE += androidboot.usbcontroller=a600000.dwc3
 BOARD_KERNEL_CMDLINE += console=ttyMSM0,115200n8
 BOARD_KERNEL_CMDLINE += earlycon=msm_geni_serial,0xa88000
@@ -160,7 +170,6 @@ BOARD_CACHEIMAGE_PARTITION_SIZE := 100663296
 BOARD_DTBOIMG_PARTITION_SIZE := 25165824
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 100663296
 BOARD_SUPER_PARTITION_SIZE := 8476688384
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 12884901888
 #BOARD_ODMIMAGE_PARTITION_SIZE := 104857600
 
 BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
@@ -187,7 +196,7 @@ BOARD_USES_METADATA_PARTITION := true
 
 BOARD_FLASH_BLOCK_SIZE := 262144
 
--include vendor/derp/config/BoardConfigReservedSize.mk
+-include vendor/lineage/config/BoardConfigReservedSize.mk
 
 # Platform
 TARGET_BOARD_PLATFORM := atoll

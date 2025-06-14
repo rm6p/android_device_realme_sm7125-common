@@ -16,9 +16,20 @@ vendor.display.disable_rotator_ubwc=1
 vendor.display.disable_layer_stitch=0
 vendor.display.disable_hw_recovery_dump=1
 vendor.display.disable_rotator_downscale=1
+vendor.display.idle_time=0
+vendor.display.idle_time_inactive=0
+vendor.display.disable_metadata_dynamic_fps=1
 
 # LMKD
 ro.config.low_ram=false
 
 # Incremental FS
 ro.incremental.enable=1
+
+# Fling
+ro.min.fling_velocity=160
+ro.max.fling_velocity=20000
+ro.vendor.qti.cgroup_follow.enable=true
+persist.vendor.qti.inputopts.enable=true
+persist.vendor.qti.inputopts.movetouchslop=0.6
+ro.qcom.adreno.qgl.ShaderStorageImageExtendedFormats=0
