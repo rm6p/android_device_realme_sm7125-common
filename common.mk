@@ -238,18 +238,7 @@ $(call inherit-product-if-exists, vendor/lawnchair/lawnchair.mk)
 PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay@2.0-service-sdm
 
-# Media
-PRODUCT_PACKAGES += \
-    libmm-omxcore \
-    libOmxAacEnc \
-    libOmxAmrEnc \
-    libOmxCore \
-    libOmxEvrcEnc \
-    libOmxG711Enc \
-    libOmxQcelp13Enc \
-    libOmxVdec \
-    libOmxVenc \
-    libstagefrighthw
+
 
 # Media configs
 PRODUCT_COPY_FILES += \
@@ -260,6 +249,13 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xm
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/media/media_codecs_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_c2.xml \
+    $(LOCAL_PATH)/media/media_codecs_performance_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance_c2.xml \
+    $(LOCAL_PATH)/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
+
+
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/configs/media/vendor,$(TARGET_COPY_OUT_VENDOR)/etc) \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/configs/media/odm/,$(TARGET_COPY_OUT_ODM)/etc)
