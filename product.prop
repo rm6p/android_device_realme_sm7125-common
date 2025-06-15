@@ -1,5 +1,4 @@
-# Charger
-ro.charger.enable_suspend=true
+
 
 # Display
 debug.sf.hw=0
