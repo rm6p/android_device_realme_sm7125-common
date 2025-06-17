@@ -133,12 +133,18 @@ BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_CLANG_COMPILE := true
 TARGET_KERNEL_ADDITIONAL_FLAGS := \
-    LLVM=1 \
-    LLVM_IAS=1
+    AR=llvm-ar \
+    NM=llvm-nm \
+    OBJCOPY=llvm-objcopy \
+    OBJDUMP=llvm-objdump \
+    STRIP=llvm-strip 
 TARGET_KERNEL_SOURCE := kernel/realme/sm7125
 TARGET_KERNEL_CONFIG := atoll_defconfig
 KERNEL_SUPPORTS_LLVM_TOOLS := true
 
+# Clang
+TARGET_KERNEL_CLANG_VERSION := proton
+KERNEL_TOOLCHAIN_PATH := $(shell pwd)/prebuilts/clang/host/linux-x86/clang-proton
 #Kernel Cmdline
 BOARD_KERNEL_CMDLINE += androidboot.console=ttyMSM0
 BOARD_KERNEL_CMDLINE += androidboot.fstab_suffix=default
