@@ -217,7 +217,7 @@ TARGET_FWK_SUPPORTS_FULL_VALUEADDS := true
 # Recovery
 BOARD_INCLUDE_RECOVERY_DTBO := true
 TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/rootdir/etc/fstab.default
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 TARGET_USES_MKE2FS := true
@@ -233,7 +233,7 @@ VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
 
 # Sepolicy
 include device/qcom/sepolicy_vndr/SEPolicy.mk
-
+include device/lineage/sepolicy/libperfmgr/sepolicy.mk
 BOARD_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
 
 # SurfaceFlinger
@@ -242,8 +242,6 @@ TARGET_USE_AOSP_SURFACEFLINGER := true
 # Treble
 BOARD_VNDK_VERSION := current
 
-# UDFPS
-TARGET_SURFACEFLINGER_UDFPS_LIB := //$(COMMON_PATH):libudfps_extension.realme_sm7125
 
 # WiFi
 BOARD_WLAN_DEVICE := qcwcn
