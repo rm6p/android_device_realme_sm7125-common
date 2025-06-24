@@ -13,6 +13,8 @@ $(call inherit-product-if-exists, vendor/realme/sm7125-common/sm7125-common-vend
 # Setup dalvik vm configs
 $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 
+# Add common definitions for QualcommAdd commentMore actions
+$(call inherit-product, hardware/qcom-caf/common/common.mk)
 
 # Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
@@ -26,8 +28,6 @@ PRODUCT_PACKAGES += \
 # API
 PRODUCT_SHIPPING_API_LEVEL := 29
 
-# Add common definitions for QualcommAdd commentMore actions
-$(call inherit-product, hardware/qcom-caf/common/common.mk)
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -36,6 +36,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     audio.usb.default \
     audio.r_submix.default \
+    libprocessgroup.vendor \
     libaudio-resampler
 
 PRODUCT_PACKAGES += \
@@ -57,8 +58,9 @@ PRODUCT_COPY_FILES += \
 
 
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/audio/odm/,$(TARGET_COPY_OUT_ODM)/etc) \
-    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/audio/vendor/,$(TARGET_COPY_OUT_VENDOR)/etc)
+    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/audio/odm/,$(TARGET_COPY_OUT_ODM)/etc) 
+
+
 
 # AVB
 #PRODUCT_PACKAGES += \
@@ -74,9 +76,7 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth.audio-impl \
     android.hardware.bluetooth@1.0.vendor \
     vendor.qti.hardware.btconfigstore@1.0.vendor \
-    vendor.qti.hardware.btconfigstore@2.0.vendor \
-    android.hardware.bluetooth.a2dp@1.0 \
-    android.hardware.bluetooth.a2dp@1.0.vendor
+    vendor.qti.hardware.btconfigstore@2.0.vendor 
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
@@ -133,8 +133,8 @@ PRODUCT_PACKAGES += \
     vendor.display.config@2.0.vendor
 
 # DRM
-#PRODUCT_PACKAGES += \
-#    android.hardware.drm@1.4-service.clearkey
+PRODUCT_PACKAGES += \
+    android.hardware.drm-service.clearkey
 
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.0.vendor \
@@ -201,22 +201,46 @@ PRODUCT_PACKAGES += \
 # Init
 $(call soong_config_set,libinit,vendor_init_lib,//$(LOCAL_PATH):libinit_realme_sm7125)
 
+# Include Android.bp modules
+PRODUCT_PACKAGES += \
+    fstab.default \
+    ueventd.rc \
+    init.oppo.debug.diag.rc \
+    init.oppo.display.rc_odm \
+    init.oppo.display.rc_vendor \
+    init.qcom.rc \
+    init.qti.ufs.rc \
+    init.target.rc \
+    init.qcom.factory.rc \
+    init.qcom.usb.rc \
+    init.sm7125.rc \
+    init.recovery.qcom.sh \
+    init.at.class_main.sh \
+    init.qcom.class_core.sh \
+    init.qcom.sdio.sh \
+    init.qti.dcvs.sh \
+    init.at.post_boot.sh \
+    init.qcom.coex.sh \
+    init.qcom.sensors.sh \
+    init.qti.qcv.sh \
+    init.class_main.sh \
+    init.qcom.early_boot.sh \
+    init.qcom.sh \
+    init.crda.sh \
+    init.qcom.efs.sync.sh \
+    init.qcom.usb.sh \
+    init.mdm.sh \
+    init.qcom.post_boot.sh \
+    init.qti.chg_policy.sh
+
+# Copy ODM-specific files to /odm partition
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/etc/odm/init.oppo.debug.diag.rc:$(TARGET_COPY_OUT_ODM)/etc/init.oppo.debug.diag.rc \
+    $(LOCAL_PATH)/rootdir/etc/odm/init.oppo.display.rc:$(TARGET_COPY_OUT_ODM)/etc/init.oppo.display.rc
 # Init scripts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/fstab.default:$(TARGET_COPY_OUT_RAMDISK)/fstab.default \
-    $(LOCAL_PATH)/rootdir/etc/fstab.default:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.default
 
-PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/etc/odm/,$(TARGET_COPY_OUT_ODM)/etc/init/hw) \
-    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/etc/vendor/,$(TARGET_COPY_OUT_VENDOR)/etc/init/hw)
-
-PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/bin/,$(TARGET_COPY_OUT_VENDOR)/bin)
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
-    $(LOCAL_PATH)/recovery/root/init.recovery.qcom.rc:recovery/root/init.recovery.qcom.rc \
-    $(LOCAL_PATH)/recovery/root/init.recovery.usb.rc:recovery/root/init.recovery.usb.rc
 
 # IPACM
 PRODUCT_PACKAGES += \
@@ -239,16 +263,11 @@ PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay@2.0-service-sdm
 
 
-
 # Media configs
 PRODUCT_COPY_FILES += \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2_video.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xm
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/media_codecs_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_c2.xml \
@@ -280,7 +299,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.2-service \
     com.android.nfc_extras \
-    NfcNci \
     android.hardware.secure_element@1.0-service-disabled \
     SecureElement \
     Tag
@@ -382,12 +400,6 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/qcom-caf/common/libqti-perfd-client
 
 
-# Speed profile services and wifi-service to reduce RAM and storage
-PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
-PRODUCT_ALWAYS_PREOPT_EXTRACTED_APK := true
-PRODUCT_USE_PROFILE_FOR_BOOT_IMAGE := true
-PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := frameworks/base/config/boot-image-profile.txt
-
 # Telephony
 PRODUCT_PACKAGES += \
     extphonelib \
@@ -423,6 +435,13 @@ PRODUCT_PACKAGES += \
 #PRODUCT_PACKAGES += \
 #    textclassifier.bundle1
 
+
+# Speed profile services and wifi-service to reduce RAM and storage
+PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
+PRODUCT_ALWAYS_PREOPT_EXTRACTED_APK := true
+PRODUCT_USE_PROFILE_FOR_BOOT_IMAGE := true
+PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := frameworks/base/boot/boot-image-profile.txt
+
 # Touchscreen
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml
@@ -443,9 +462,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     vndservicemanager
 
-# VNDK
-PRODUCT_PACKAGES += \
-    vndk_package
+
 
 PRODUCT_COPY_FILES += \
     prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-core/libgui.so:$(TARGET_COPY_OUT_SYSTEM)/lib64/libxxx.so \

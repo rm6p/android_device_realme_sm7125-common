@@ -481,6 +481,30 @@ service dcvs-sh /vendor/bin/init.qti.dcvs.sh
     disabled
     oneshot
 
+
+# Missing services causing boot delays
+service wait_for_keymaster /system/bin/sh -c "
+    for i in $(seq 1 30); do
+        if getprop init.svc.keymaster-4-0 | grep -q running; then
+            exit 0
+        fi
+        sleep 1
+    done
+    exit 0
+"
+    class main
+    user root
+    group root
+    oneshot
+    disabled
+
+service update_verifier /system/bin/true
+    class main
+    user root
+    group root
+    oneshot
+    disabled
+
 on property:vendor.dcvs.prop=1
    start dcvs-sh
 
