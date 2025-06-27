@@ -58,7 +58,9 @@ PRODUCT_COPY_FILES += \
 
 
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/audio/odm/,$(TARGET_COPY_OUT_ODM)/etc) 
+    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/audio/odm/,$(TARGET_COPY_OUT_ODM)/etc) \
+    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/audio/vendor/,$(TARGET_COPY_OUT_VENDOR)/etc)
+
 
 
 
@@ -182,8 +184,8 @@ PRODUCT_COPY_FILES += \
 
 # Health
 PRODUCT_PACKAGES += \
-  android.hardware.health-service.qti \
-    android.hardware.health-service.qti_recovery
+    android.hardware.health@2.1-impl-qti \
+    android.hardware.health@2.1-service
 
 # HIDL
 PRODUCT_PACKAGES += \
@@ -201,20 +203,36 @@ PRODUCT_PACKAGES += \
 # Init
 $(call soong_config_set,libinit,vendor_init_lib,//$(LOCAL_PATH):libinit_realme_sm7125)
 
-# Include Android.bp modules
+# Init files and scripts for RMX2061
 PRODUCT_PACKAGES += \
     fstab.default \
-    ueventd.rc \
+    ueventd.qcom.rc
+
+# Ramdisk fstab copy
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/etc/fstab.default:$(TARGET_COPY_OUT_RAMDISK)/fstab.default
+
+# ODM init files
+PRODUCT_PACKAGES += \
     init.oppo.debug.diag.rc \
-    init.oppo.display.rc_odm \
+    init.oppo.display.rc_odm
+
+# Vendor init files
+PRODUCT_PACKAGES += \
     init.oppo.display.rc_vendor \
     init.qcom.rc \
     init.qti.ufs.rc \
     init.target.rc \
     init.qcom.factory.rc \
     init.qcom.usb.rc \
-    init.sm7125.rc \
-    init.recovery.qcom.sh \
+    init.sm7125.rc
+
+# Recovery init script
+PRODUCT_PACKAGES += \
+    init.recovery.qcom.sh
+
+# Vendor shell scripts
+PRODUCT_PACKAGES += \
     init.at.class_main.sh \
     init.qcom.class_core.sh \
     init.qcom.sdio.sh \
@@ -232,14 +250,6 @@ PRODUCT_PACKAGES += \
     init.mdm.sh \
     init.qcom.post_boot.sh \
     init.qti.chg_policy.sh
-
-# Copy ODM-specific files to /odm partition
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/odm/init.oppo.debug.diag.rc:$(TARGET_COPY_OUT_ODM)/etc/init.oppo.debug.diag.rc \
-    $(LOCAL_PATH)/rootdir/etc/odm/init.oppo.display.rc:$(TARGET_COPY_OUT_ODM)/etc/init.oppo.display.rc
-# Init scripts
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/fstab.default:$(TARGET_COPY_OUT_RAMDISK)/fstab.default \
 
 
 # IPACM
@@ -353,11 +363,6 @@ PRODUCT_PACKAGES += \
     libqti_vndfwk_detect.vendor \
     libvndfwk_detect_jni.qti.vendor
 
-# RCS
-PRODUCT_PACKAGES += \
-    com.android.ims.rcsmanager \
-    PresencePolling \
-    RcsService
 
 # RealmeParts
 PRODUCT_PACKAGES += \
@@ -383,22 +388,20 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.barometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.barometer.xml \
     frameworks/native/data/etc/android.hardware.sensor.hifi_sensors.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.hifi_sensors.xml
 
-# Servicetracker
-PRODUCT_PACKAGES += \
-    vendor.qti.hardware.servicetracker@1.0.vendor \
-    vendor.qti.hardware.servicetracker@1.1.vendor \
-    vendor.qti.hardware.servicetracker@1.2.vendor
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     kernel/realme/sm7125 \
     hardware/google/interfaces \
+    device/realme/sm7125-common/shims \
     hardware/google/pixel \
     hardware/lineage/interfaces/power-libperfmgr \
     hardware/oplus \
     hardware/qcom-caf/common/libqti-perfd-client
-
+#shims
+PRODUCT_PACKAGES += libshim_wvhidl
+PRODUCT_PACKAGES += liboppodisplay
 
 # Telephony
 PRODUCT_PACKAGES += \

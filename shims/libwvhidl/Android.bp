@@ -1,0 +1,6 @@
+cc_library_shared {
+    name: "libshim_wvhidl",
+    srcs: ["libshim_wvhidl.c"],
+    vendor: true,
+    cflags: ["-Wno-unused-parameter"],
+}
