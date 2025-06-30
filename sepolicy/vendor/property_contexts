@@ -1,0 +1,2 @@
+persist.adb.*                         u:object_r:adbd_prop:s0
+persist.sys.adb.*                     u:object_r:adbd_tradeinmode_prop:s0

@@ -65,3 +65,5 @@ allow flags_health_check heapprofd_enabled_prop:file { getattr open map };
 allow flags_health_check hwservicemanager_prop:file { getattr open map };
 allow flags_health_check hypervisor_prop:file { getattr open map };
 allow flags_health_check incremental_prop:file { getattr open map };
+
+

@@ -1,0 +1,3 @@
+# Block device access
+allow fsck vendor_modem_efs_partition_device:blk_file { read write };
+
