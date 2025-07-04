@@ -1,5 +1,21 @@
-allow untrusted_app aac_drc_prop:file { getattr map open };
-allow untrusted_app ab_update_gki_prop:file { getattr open };
+# Property access
+get_prop(untrusted_app, aac_drc_prop)
+get_prop(untrusted_app, ab_update_gki_prop)
+
+# ADB (optional)
 allow untrusted_app adb_data_file:dir getattr;
-allow untrusted_app proc_max_map_count:file read;
-allow untrusted_app proc_zoneinfo:file { getattr open };
+
+# Specific allowed proc files
+allow untrusted_app proc_max_map_count:file r_file_perms;
+allow untrusted_app proc_zoneinfo:file r_file_perms;
+
+# General /proc access (only metadata)
+allow untrusted_app media_rw_data_file:file relabelfrom;
+allow untrusted_app proc:file getattr;
+
+# Optional safe /proc entries
+allow untrusted_app proc_keys:file r_file_perms;
+allow untrusted_app proc_misc:file r_file_perms;
+
+allow untrusted_app media_rw_data_file:file relabelto;
+
