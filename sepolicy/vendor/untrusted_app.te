@@ -53,6 +53,6 @@ allow untrusted_app proc_interrupts:file getattr;
 allow untrusted_app proc_kpageflags:file getattr;
 
 # For accessing system characteristics
-allow untrusted_app block_device:dir search;
-
-
+allow untrusted_app proc_pagetypeinfo:file getattr;
+allow untrusted_app proc_sysrq:file getattr;
+allow untrusted_app proc_vmallocinfo:file getattr;
