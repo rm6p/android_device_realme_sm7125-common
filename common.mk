@@ -393,9 +393,7 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/lineage/interfaces/power-libperfmgr \
     hardware/oplus \
     hardware/qcom-caf/common/libqti-perfd-client
-#shims
-PRODUCT_PACKAGES += libshim_wvhidl
-PRODUCT_PACKAGES += liboppodisplay
+
 
 # Telephony
 PRODUCT_PACKAGES += \
