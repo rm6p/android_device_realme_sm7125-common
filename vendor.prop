@@ -165,6 +165,7 @@ ro.hardware.keystore_desede=true
 
 # Media
 drm.service.enabled=true
+debug.stagefright.c2inputsurface=-1
 
 # NFC
 persist.sys.nfc.disPowerSave=1
