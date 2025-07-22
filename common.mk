@@ -395,7 +395,6 @@ PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     kernel/realme/sm7125 \
     hardware/google/interfaces \
-    device/realme/sm7125-common/shims \
     hardware/google/pixel \
     hardware/lineage/interfaces/power-libperfmgr \
     hardware/oplus \
