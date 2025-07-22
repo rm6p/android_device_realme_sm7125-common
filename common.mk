@@ -448,10 +448,16 @@ PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := frameworks/base/boot/boot-imag
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml
 
+
+# Thermal
+PRODUCT_PACKAGES += \
+    android.hardware.thermal-service.qti
+
+
 # USB
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.3-service.dual_role_usb 
-    
+
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml
@@ -627,9 +633,6 @@ PRODUCT_PACKAGES += \
     android.hardware.secure_element@1.2.vendor \
     android.hardware.tetheroffload.config@1.0.vendor \
     android.hardware.tetheroffload.control@1.0.vendor \
-    android.hardware.thermal@1.0.vendor \
-    android.hardware.thermal@1.1.vendor \
-    android.hardware.thermal@2.0.vendor \
     android.hardware.tv.cec@1.0.vendor \
     android.hardware.tv.input@1.0.vendor \
     android.hardware.tv.tuner@1.0.vendor \
