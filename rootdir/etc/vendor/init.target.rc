@@ -143,10 +143,9 @@ on boot
     # Fix: Reconfigure storaged to only monitor /data, preventing a crash
     # on kernels that lack legacy stat files for all block devices.
     setprop ro.vendor.storaged.enabled_for_path /data
-
     start vendor.rmt_storage
     # Fix: Removed call to start non-existent rfs_access service.
-    # start rfs_access
+    start rfs_access
 
     chown system system /dev/cpuset/cgroup.procs
     chown system system /dev/cpuset/foreground/cgroup.procs
@@ -275,6 +274,37 @@ service update_verifier /system/bin/true
     group root
     oneshot
     disabled
+
+service ppd /vendor/bin/mm-pp-dpps
+    class late_start
+    user system
+    group system graphics
+    socket pps stream 0660 system system
+    disabled
+
+on property:init.svc.hwcomposer-2-1=stopped
+    stop ppd
+
+on property:init.svc.hwcomposer-2-1=running
+    start ppd
+
+on property:init.svc.hwcomposer-2-1=restarting
+    stop ppd
+
+on property:vendor.display.lcd_density=640
+   setprop dalvik.vm.heapgrowthlimit 512m
+
+on property:vendor.display.lcd_density=560
+   setprop dalvik.vm.heapgrowthlimit 256m
+
+on property:vendor.display.lcd_density=480
+   setprop dalvik.vm.heapgrowthlimit 128m
+
+on property:vendor.display.lcd_density=240
+   setprop dalvik.vm.heapgrowthlimit 96m
+
+on property:vendor.display.lcd_density=160
+   setprop dalvik.vm.heapgrowthlimit 96m
 
 on property:vendor.dcvs.prop=1
     start dcvs-sh
