@@ -264,7 +264,7 @@ PRODUCT_COPY_FILES += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-service.realme_sm7125
+    android.hardware.light-service.lineage
 
 #Lawnchair
 $(call inherit-product-if-exists, vendor/lawnchair/lawnchair.mk)
