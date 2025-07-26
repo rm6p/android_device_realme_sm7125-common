@@ -447,11 +447,11 @@ PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := frameworks/base/boot/boot-imag
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml
 
-
-# Thermal
+#thermal
 PRODUCT_PACKAGES += \
-    android.hardware.thermal-service.qti
-
+    android.hardware.thermal@1.0.vendor \
+    android.hardware.thermal@1.1.vendor \
+    android.hardware.thermal@2.0.vendor 
 
 # USB
 PRODUCT_PACKAGES += \
