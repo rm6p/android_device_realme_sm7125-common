@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021 The LineageOS Project
+# Copyright (C) 2025 The LineageOS Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -15,6 +15,9 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 
 # Add common definitions for QualcommAdd commentMore actions
 $(call inherit-product, hardware/qcom-caf/common/common.mk)
+
+# Enable project quotas and casefolding for emulated storage without sdcardfs
+$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
 # Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
@@ -43,7 +46,21 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@6.0-impl \
     android.hardware.audio.effect@6.0-impl \
     android.hardware.soundtrigger@2.3-impl \
-    android.hardware.audio@2.0-service
+    android.hardware.audio@2.0-service \
+    android.hardware.audio.common@4.0.vendor \
+    android.hardware.audio.common@5.0.vendor \
+    android.hardware.audio.common@6.0.vendor \
+    android.hardware.audio.effect@2.0.vendor \
+    android.hardware.audio.effect@4.0.vendor \
+    android.hardware.audio.effect@5.0.vendor \
+    android.hardware.audio.effect@6.0.vendor \
+    android.hardware.audio@2.0.vendor \
+    android.hardware.audio@4.0.vendor \
+    android.hardware.audio@5.0.vendor \
+    android.hardware.audio@6.0.vendor \
+    android.hardware.authsecret@1.0.vendor \
+    android.hardware.automotive.audiocontrol@1.0.vendor \
+    android.hardware.automotive.audiocontrol@2.0.vendor 
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.pro.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.pro.xml \
@@ -62,13 +79,13 @@ PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/audio/vendor/,$(TARGET_COPY_OUT_VENDOR)/etc)
 
 
-
-
-# AVB
-#PRODUCT_PACKAGES += \
-#    q-gsi.avbpubkey \
-#    r-gsi.avbpubkey \
-#    s-gsi.avbpubkey
+# Automotive
+PRODUCT_PACKAGES += \
+    android.hardware.automotive.can@1.0.vendor \
+    android.hardware.automotive.evs@1.0.vendor \
+    android.hardware.automotive.evs@1.1.vendor \
+    android.hardware.automotive.sv@1.0.vendor \
+    android.hardware.automotive.vehicle@2.0.vendor 
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -77,6 +94,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth.audio-impl \
     android.hardware.bluetooth@1.0.vendor \
+    android.hardware.bluetooth.audio@2.0.vendor \
+    android.hardware.bluetooth@1.0.vendor \
+    android.hardware.bluetooth@1.1.vendor \
     vendor.qti.hardware.btconfigstore@1.0.vendor \
     vendor.qti.hardware.btconfigstore@2.0.vendor 
 
@@ -84,19 +104,46 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml
 
+# Boot
+PRODUCT_PACKAGES += \
+    android.hardware.boot@1.0.vendor \
+    android.hardware.boot@1.1.vendor 
+
 # Boot animation
 TARGET_SCREEN_HEIGHT := 2400
 TARGET_SCREEN_WIDTH := 1080
 
-# Call recording
-#PRODUCT_PACKAGES += \
-#    com.google.android.apps.dialer.call_recording_audio.features.xml
+# Cas
+PRODUCT_PACKAGES += \
+    android.hardware.cas.native@1.0.vendor \
+    android.hardware.cas@1.0.vendor \
+    android.hardware.cas@1.1.vendor \
+    android.hardware.cas@1.2.vendor 
 
 # Camera
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service_64 \
-    libcamera_metadata_shim
+    libcamera_metadata_shim \
+    android.hardware.camera.common@1.0.vendor \
+    android.hardware.camera.device@1.0.vendor \
+    android.hardware.camera.device@3.2.vendor \
+    android.hardware.camera.device@3.3.vendor \
+    android.hardware.camera.device@3.4.vendor \
+    android.hardware.camera.device@3.5.vendor \
+    android.hardware.camera.device@3.6.vendor \
+    android.hardware.camera.metadata@3.2.vendor \
+    android.hardware.camera.metadata@3.3.vendor \
+    android.hardware.camera.metadata@3.4.vendor \
+    android.hardware.camera.metadata@3.5.vendor \
+    android.hardware.camera.provider@2.4.vendor \
+    android.hardware.camera.provider@2.5.vendor \
+    android.hardware.camera.provider@2.6.vendor \
+    android.frameworks.cameraservice.common@2.0.vendor \
+    android.frameworks.cameraservice.device@2.0.vendor \
+    android.frameworks.cameraservice.service@2.0.vendor \
+    android.frameworks.cameraservice.service@2.1.vendor \
+    vendor.qti.hardware.camera.device@1.0.vendor 
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
@@ -104,7 +151,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.full.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.full.xml \
     frameworks/native/data/etc/android.hardware.camera.raw.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.raw.xml
 
-#CertifiedProps
+# CertifiedProps
 $(call inherit-product-if-exists, vendor/certprops/Android.mk)
 
 # Display
@@ -123,6 +170,13 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.4-service \
     android.hardware.graphics.mapper@3.0-impl-qti-display \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
+    android.hardware.graphics.common-V1-ndk_platform.vendor \
+    android.hardware.graphics.composer@2.1.vendor \
+    android.hardware.graphics.composer@2.2.vendor \
+    android.hardware.graphics.composer@2.3.vendor \
+    android.hardware.graphics.composer@2.4.vendor \
+    android.frameworks.automotive.display@1.0.vendor \
+    android.frameworks.displayservice@1.0.vendor \
     vendor.qti.hardware.display.allocator-service \
     vendor.qti.hardware.display.mapper@1.1.vendor \
     vendor.qti.hardware.display.mapper@2.0.vendor \
@@ -132,7 +186,8 @@ PRODUCT_PACKAGES += \
     vendor.display.config@1.5 \
     vendor.display.config@1.11.vendor \
     vendor.display.config@2.0 \
-    vendor.display.config@2.0.vendor
+    vendor.display.config@2.0.vendor 
+    
 
 # DRM
 PRODUCT_PACKAGES += \
@@ -145,21 +200,25 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.3.vendor \
     android.hardware.drm@1.4.vendor
 
-
-# Enable project quotas and casefolding for emulated storage without sdcardfs
-$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
-
-# Fastbootd
-PRODUCT_PACKAGES += \
-    fastbootd
-
 # Enable whole-program R8 Java optimizations for SystemUI and system_server
 SYSTEM_OPTIMIZE_JAVA := true
 SYSTEMUI_OPTIMIZE_JAVA := true
 
+# Fastbootd
+PRODUCT_PACKAGES += \
+    fastbootd \
+    android.hardware.fastboot@1.0.vendor 
+
+# Face Unlock
+PRODUCT_PACKAGES += \
+    android.hardware.biometrics.face@1.0.vendor 
+
 # Fingerprint
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.3-service.realme_sm7125
+    android.hardware.biometrics.fingerprint@2.3-service.realme_sm7125 \
+    android.hardware.biometrics.fingerprint@2.1.vendor \
+    android.hardware.biometrics.fingerprint@2.2.vendor \
+    android.hardware.biometrics.fingerprint@2.3.vendor 
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
@@ -179,6 +238,16 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.location.gps.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.location.gps.xml
 
+# GNSS
+PRODUCT_PACKAGES += \
+    android.hardware.gnss.measurement_corrections@1.0.vendor \
+    android.hardware.gnss.measurement_corrections@1.1.vendor \
+    android.hardware.gnss.visibility_control@1.0.vendor \
+    android.hardware.gnss@1.0.vendor \
+    android.hardware.gnss@1.1.vendor \
+    android.hardware.gnss@2.0.vendor \
+    android.hardware.gnss@2.1.vendor 
+
 # Graphics
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.opengles.aep.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.opengles.aep.xml
@@ -186,6 +255,10 @@ PRODUCT_COPY_FILES += \
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl-qti \
+    android.hardware.health.storage@1.0.vendor \
+    android.hardware.health@1.0.vendor \
+    android.hardware.health@2.0.vendor \
+    android.hardware.health@2.1.vendor \
     android.hardware.health@2.1-service
 
 # HIDL
@@ -193,7 +266,9 @@ PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
     android.hidl.base@1.0.vendor \
     android.hidl.manager@1.0 \
-    android.hidl.manager@1.0.vendor
+    android.hidl.manager@1.0.vendor \
+    android.hidl.allocator@1.0.vendor \
+    android.hidl.memory.block@1.0.vendor 
 
 PRODUCT_PACKAGES += \
     libhidltransport \
@@ -209,16 +284,7 @@ PRODUCT_PACKAGES += \
     fstab.default \
     ueventd.qcom.rc
 
-# Ramdisk fstab copy
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/fstab.default:$(TARGET_COPY_OUT_RAMDISK)/fstab.default
-
-# ODM init files
-PRODUCT_PACKAGES += \
-    init.oppo.debug.diag.rc \
-    init.oppo.display.rc_odm
-
-# Vendor init files
+# init Vendor files
 PRODUCT_PACKAGES += \
     init.oppo.display.rc_vendor \
     init.qcom.rc \
@@ -228,11 +294,7 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.rc \
     init.sm7125.rc
 
-# Recovery init script
-PRODUCT_PACKAGES += \
-    init.recovery.qcom.sh
-
-# Vendor shell scripts
+# init Vendor shell scripts
 PRODUCT_PACKAGES += \
     init.at.class_main.sh \
     init.qcom.class_core.sh \
@@ -251,8 +313,7 @@ PRODUCT_PACKAGES += \
     init.mdm.sh \
     init.qcom.post_boot.sh \
     init.qti.chg_policy.sh
-
-
+    
 # IPACM
 PRODUCT_PACKAGES += \
     ipacm \
@@ -262,9 +323,16 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
 
+# Keymaster
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@3.0.vendor \
+    android.hardware.keymaster@4.0.vendor \
+    android.hardware.keymaster@4.1.vendor 
+
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.light-service.lineage
+    android.hardware.light-service.lineage \
+    android.hardware.light@2.0.vendor 
 
 #Lawnchair
 $(call inherit-product-if-exists, vendor/lawnchair/lawnchair.mk)
@@ -273,6 +341,11 @@ $(call inherit-product-if-exists, vendor/lawnchair/lawnchair.mk)
 PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay@2.0-service-sdm
 
+#Media
+PRODUCT_PACKAGES += \
+    android.hardware.media.bufferpool@1.0.vendor \
+    android.hardware.media.c2@1.0.vendor \
+    android.hardware.media.c2@1.1.vendor 
 
 # Media configs
 PRODUCT_COPY_FILES += \
@@ -283,11 +356,9 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml
 
-
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/configs/media/vendor,$(TARGET_COPY_OUT_VENDOR)/etc) \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/configs/media/odm/,$(TARGET_COPY_OUT_ODM)/etc)
-
 
 # Minijail
 PRODUCT_PACKAGES += \
@@ -295,7 +366,7 @@ PRODUCT_PACKAGES += \
     libavservices_minijail \
     libavservices_minijail.vendor
 
-#mount 
+# Mount 
 PRODUCT_PACKAGES += \
      vendor_bt_firmware_mountpoint \
      vendor_dsp_mountpoint \
@@ -304,15 +375,25 @@ PRODUCT_PACKAGES += \
 # Network
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.ipsec_tunnels.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.ipsec_tunnels.xml \
-    frameworks/native/data/etc/android.software.ipsec_tunnel_migration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.ipsec_tunnel_migration.xml \
+    frameworks/native/data/etc/android.software.ipsec_tunnel_migration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.ipsec_tunnel_migration.xml 
+
+# Neural Networks
+PRODUCT_PACKAGES += \
+    android.hardware.neuralnetworks@1.0.vendor \
+    android.hardware.neuralnetworks@1.1.vendor \
+    android.hardware.neuralnetworks@1.2.vendor \
+    android.hardware.neuralnetworks@1.3.vendor 
 
 # NFC
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.2-service \
+    android.hardware.nfc@1.0.vendor \
+    android.hardware.nfc@1.1.vendor \
+    android.hardware.nfc@1.2.vendor \
     com.android.nfc_extras \
     android.hardware.secure_element@1.0-service-disabled \
     SecureElement \
-    Tag
+    Tag 
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/nfc/libese-nxp.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libese-nxp.conf \
@@ -328,11 +409,20 @@ DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
     $(LOCAL_PATH)/overlay-lineage
 
+# OEM
+PRODUCT_PACKAGES += \
+    android.hardware.oemlock@1.0.vendor 
+
+# ODM init files
+PRODUCT_PACKAGES += \
+    init.oppo.debug.diag.rc \
+    init.oppo.display.rc_odm
+
 # Perf
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.perf@2.2.vendor
 
-#Product Properties (CAF)
+# Product Properties (CAF)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.soc.manufacturer=QTI
 
@@ -343,17 +433,18 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     android.hardware.power-service.lineage-libperfmgr \
     android.hardware.power@1.2.vendor \
+    android.hardware.power.stats@1.0.vendor \
     libqti-perfd-client
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
-#performance critical applications
+# Performance critical applications
 PRODUCT_DEXPREOPT_SPEED_APPS += \
     Settings \
     SystemUI
 
-#Protobuf
+# Protobuf
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full-3.9.1-vendorcompat \
     libprotobuf-cpp-lite-3.9.1
@@ -364,6 +455,13 @@ PRODUCT_PACKAGES += \
     libqti_vndfwk_detect.vendor \
     libvndfwk_detect_jni.qti.vendor
 
+# Ramdisk fstab copy
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/etc/fstab.default:$(TARGET_COPY_OUT_RAMDISK)/fstab.default
+
+# Recovery init script
+PRODUCT_PACKAGES += \
+    init.recovery.qcom.sh
 
 # RealmeParts
 PRODUCT_PACKAGES += \
@@ -373,6 +471,22 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libjson \
     librmnetctl
+
+# Radio
+PRODUCT_PACKAGES += \
+    android.hardware.broadcastradio@1.0.vendor \
+    android.hardware.broadcastradio@1.1.vendor \
+    android.hardware.broadcastradio@2.0.vendor \
+    android.hardware.radio.config@1.0.vendor \
+    android.hardware.radio.config@1.1.vendor \
+    android.hardware.radio.config@1.2.vendor \
+    android.hardware.radio.deprecated@1.0.vendor \
+    android.hardware.radio@1.0.vendor \
+    android.hardware.radio@1.1.vendor \
+    android.hardware.radio@1.2.vendor \
+    android.hardware.radio@1.3.vendor \
+    android.hardware.radio@1.4.vendor \
+    android.hardware.radio@1.5.vendor 
 
 # Sensors
 PRODUCT_PACKAGES += \
@@ -389,6 +503,11 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.barometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.barometer.xml \
     frameworks/native/data/etc/android.hardware.sensor.hifi_sensors.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.hifi_sensors.xml
 
+# Speed profile services and wifi-service to reduce RAM and storage
+PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
+PRODUCT_ALWAYS_PREOPT_EXTRACTED_APK := true
+PRODUCT_USE_PROFILE_FOR_BOOT_IMAGE := true
+PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := frameworks/base/boot/boot-image-profile.txt
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
@@ -399,7 +518,6 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/lineage/interfaces/power-libperfmgr \
     hardware/oplus \
     hardware/qcom-caf/common/libqti-perfd-client
-
 
 # Telephony
 PRODUCT_PACKAGES += \
@@ -432,16 +550,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     TetheringConfigOverlay
 
-# TextClassifier
-#PRODUCT_PACKAGES += \
-#    textclassifier.bundle1
-
-
-# Speed profile services and wifi-service to reduce RAM and storage
-PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
-PRODUCT_ALWAYS_PREOPT_EXTRACTED_APK := true
-PRODUCT_USE_PROFILE_FOR_BOOT_IMAGE := true
-PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := frameworks/base/boot/boot-image-profile.txt
+# Tethering offload
+PRODUCT_PACKAGES += \
+    android.hardware.tetheroffload.config@1.0.vendor \
+    android.hardware.tetheroffload.control@1.0.vendor 
 
 # Touchscreen
 PRODUCT_COPY_FILES += \
@@ -453,9 +565,20 @@ PRODUCT_PACKAGES += \
     android.hardware.thermal@1.1.vendor \
     android.hardware.thermal@2.0.vendor 
 
+# Tv 
+PRODUCT_PACKAGES += \
+    android.hardware.tv.cec@1.0.vendor \
+    android.hardware.tv.input@1.0.vendor \
+    android.hardware.tv.tuner@1.0.vendor 
+
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.3-service.dual_role_usb 
+    android.hardware.usb@1.3-service.dual_role_usb \
+    android.hardware.usb.gadget@1.0.vendor \
+    android.hardware.usb.gadget@1.1.vendor \
+    android.hardware.usb@1.0.vendor \
+    android.hardware.usb@1.1.vendor \
+    android.hardware.usb@1.2.vendor 
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
@@ -463,13 +586,15 @@ PRODUCT_COPY_FILES += \
 
 # Vibrator
 PRODUCT_PACKAGES += \
-    vendor.qti.hardware.vibrator.service
+    vendor.qti.hardware.vibrator.service \
+    android.hardware.vibrator@1.0.vendor \
+    android.hardware.vibrator@1.1.vendor \
+    android.hardware.vibrator@1.2.vendor \
+    android.hardware.vibrator@1.3.vendor 
 
 # Vendor service manager
 PRODUCT_PACKAGES += \
     vndservicemanager
-
-
 
 PRODUCT_COPY_FILES += \
     prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-core/libgui.so:$(TARGET_COPY_OUT_SYSTEM)/lib64/libxxx.so \
@@ -491,7 +616,20 @@ PRODUCT_PACKAGES += \
     WifiOverlay \
     wpa_cli \
     wpa_supplicant \
-    wpa_supplicant.conf
+    wpa_supplicant.conf \
+    android.hardware.wifi.hostapd@1.0.vendor \
+    android.hardware.wifi.hostapd@1.1.vendor \
+    android.hardware.wifi.hostapd@1.2.vendor \
+    android.hardware.wifi.supplicant@1.0.vendor \
+    android.hardware.wifi.supplicant@1.1.vendor \
+    android.hardware.wifi.supplicant@1.2.vendor \
+    android.hardware.wifi.supplicant@1.3.vendor \
+    android.hardware.wifi@1.0.vendor \
+    android.hardware.wifi@1.1.vendor \
+    android.hardware.wifi@1.2.vendor \
+    android.hardware.wifi@1.3.vendor \
+    android.hardware.wifi@1.4.vendor \
+    android.system.wifi.keystore@1.0.vendor 
 
 # WiFi firmware symlinks
  PRODUCT_PACKAGES += \
@@ -515,163 +653,32 @@ PRODUCT_PACKAGES += \
     libnl \
     libwfdaac_vendor
 
-#PRODUCT_BOOT_JARS += \
-    WfdCommon
-
-# Build Specific VNDK 30 Libs for Android 12+
+# Other Build Libs
 PRODUCT_PACKAGES += \
-    android.frameworks.automotive.display@1.0.vendor \
-    android.frameworks.cameraservice.common@2.0.vendor \
-    android.frameworks.cameraservice.device@2.0.vendor \
-    android.frameworks.cameraservice.service@2.0.vendor \
-    android.frameworks.cameraservice.service@2.1.vendor \
-    android.frameworks.displayservice@1.0.vendor \
     android.frameworks.schedulerservice@1.0.vendor \
     android.frameworks.stats@1.0.vendor \
     android.hardware.atrace@1.0.vendor \
     android.frameworks.sensorservice@1.0.vendor \
-    android.hardware.audio.common@4.0.vendor \
-    android.hardware.audio.common@5.0.vendor \
-    android.hardware.audio.common@6.0.vendor \
-    android.hardware.audio.effect@2.0.vendor \
-    android.hardware.audio.effect@4.0.vendor \
-    android.hardware.audio.effect@5.0.vendor \
-    android.hardware.audio.effect@6.0.vendor \
-    android.hardware.audio@2.0.vendor \
-    android.hardware.audio@4.0.vendor \
-    android.hardware.audio@5.0.vendor \
-    android.hardware.audio@6.0.vendor \
-    android.hardware.authsecret@1.0.vendor \
-    android.hardware.automotive.audiocontrol@1.0.vendor \
-    android.hardware.automotive.audiocontrol@2.0.vendor \
-    android.hardware.automotive.can@1.0.vendor \
-    android.hardware.automotive.evs@1.0.vendor \
-    android.hardware.automotive.evs@1.1.vendor \
-    android.hardware.automotive.sv@1.0.vendor \
-    android.hardware.automotive.vehicle@2.0.vendor \
-    android.hardware.biometrics.face@1.0.vendor \
-    android.hardware.biometrics.fingerprint@2.1.vendor \
-    android.hardware.biometrics.fingerprint@2.2.vendor \
-    android.hardware.biometrics.fingerprint@2.3.vendor \
-    android.hardware.bluetooth.audio@2.0.vendor \
-    android.hardware.bluetooth@1.0.vendor \
-    android.hardware.bluetooth@1.1.vendor \
-    android.hardware.boot@1.0.vendor \
-    android.hardware.boot@1.1.vendor \
-    android.hardware.broadcastradio@1.0.vendor \
-    android.hardware.broadcastradio@1.1.vendor \
-    android.hardware.broadcastradio@2.0.vendor \
-    android.hardware.camera.common@1.0.vendor \
-    android.hardware.camera.device@1.0.vendor \
-    android.hardware.camera.device@3.2.vendor \
-    android.hardware.camera.device@3.3.vendor \
-    android.hardware.camera.device@3.4.vendor \
-    android.hardware.camera.device@3.5.vendor \
-    android.hardware.camera.device@3.6.vendor \
-    android.hardware.camera.metadata@3.2.vendor \
-    android.hardware.camera.metadata@3.3.vendor \
-    android.hardware.camera.metadata@3.4.vendor \
-    android.hardware.camera.metadata@3.5.vendor \
-    android.hardware.camera.provider@2.4.vendor \
-    android.hardware.camera.provider@2.5.vendor \
-    android.hardware.camera.provider@2.6.vendor \
-    android.hardware.cas.native@1.0.vendor \
-    android.hardware.cas@1.0.vendor \
-    android.hardware.cas@1.1.vendor \
-    android.hardware.cas@1.2.vendor \
     android.hardware.common-V1-ndk_platform.vendor \
     android.hardware.confirmationui@1.0.vendor \
     android.hardware.contexthub@1.0.vendor \
     android.hardware.contexthub@1.1.vendor \
     android.hardware.dumpstate@1.0.vendor \
     android.hardware.dumpstate@1.1.vendor \
-    android.hardware.fastboot@1.0.vendor \
     android.hardware.gatekeeper@1.0.vendor \
-    android.hardware.gnss.measurement_corrections@1.0.vendor \
-    android.hardware.gnss.measurement_corrections@1.1.vendor \
-    android.hardware.gnss.visibility_control@1.0.vendor \
-    android.hardware.gnss@1.0.vendor \
-    android.hardware.gnss@1.1.vendor \
-    android.hardware.gnss@2.0.vendor \
-    android.hardware.gnss@2.1.vendor \
-    android.hardware.graphics.common-V1-ndk_platform.vendor \
-    android.hardware.graphics.composer@2.1.vendor \
-    android.hardware.graphics.composer@2.2.vendor \
-    android.hardware.graphics.composer@2.3.vendor \
-    android.hardware.graphics.composer@2.4.vendor \
     android.hardware.input.classifier@1.0.vendor \
     android.hardware.input.common@1.0.vendor \
     android.hardware.ir@1.0.vendor \
-    android.hardware.keymaster@3.0.vendor \
-    android.hardware.keymaster@4.0.vendor \
-    android.hardware.keymaster@4.1.vendor \
-    android.hardware.light@2.0.vendor \
-    android.hardware.media.bufferpool@1.0.vendor \
-    android.hardware.media.c2@1.0.vendor \
-    android.hardware.media.c2@1.1.vendor \
-    android.hardware.neuralnetworks@1.0.vendor \
-    android.hardware.neuralnetworks@1.1.vendor \
-    android.hardware.neuralnetworks@1.2.vendor \
-    android.hardware.neuralnetworks@1.3.vendor \
-    android.hardware.nfc@1.0.vendor \
-    android.hardware.nfc@1.1.vendor \
-    android.hardware.nfc@1.2.vendor \
-    android.hardware.oemlock@1.0.vendor \
-    android.hardware.radio.config@1.0.vendor \
-    android.hardware.radio.config@1.1.vendor \
-    android.hardware.radio.config@1.2.vendor \
-    android.hardware.radio.deprecated@1.0.vendor \
-    android.hardware.radio@1.0.vendor \
-    android.hardware.radio@1.1.vendor \
-    android.hardware.radio@1.2.vendor \
-    android.hardware.radio@1.3.vendor \
-    android.hardware.radio@1.4.vendor \
-    android.hardware.radio@1.5.vendor \
     android.hardware.secure_element@1.0.vendor \
     android.hardware.secure_element@1.1.vendor \
     android.hardware.secure_element@1.2.vendor \
-    android.hardware.tetheroffload.config@1.0.vendor \
-    android.hardware.tetheroffload.control@1.0.vendor \
-    android.hardware.tv.cec@1.0.vendor \
-    android.hardware.tv.input@1.0.vendor \
-    android.hardware.tv.tuner@1.0.vendor \
-    android.hardware.usb.gadget@1.0.vendor \
-    android.hardware.usb.gadget@1.1.vendor \
-    android.hardware.usb@1.0.vendor \
-    android.hardware.usb@1.1.vendor \
-    android.hardware.usb@1.2.vendor \
-    android.hardware.vibrator@1.0.vendor \
-    android.hardware.vibrator@1.1.vendor \
-    android.hardware.vibrator@1.2.vendor \
-    android.hardware.vibrator@1.3.vendor \
     android.hardware.vr@1.0.vendor \
     android.hardware.weaver@1.0.vendor \
-    android.hardware.wifi.hostapd@1.0.vendor \
-    android.hardware.wifi.hostapd@1.1.vendor \
-    android.hardware.wifi.hostapd@1.2.vendor \
-    android.hardware.wifi.supplicant@1.0.vendor \
-    android.hardware.wifi.supplicant@1.1.vendor \
-    android.hardware.wifi.supplicant@1.2.vendor \
-    android.hardware.wifi.supplicant@1.3.vendor \
-    android.hardware.wifi@1.0.vendor \
-    android.hardware.wifi@1.1.vendor \
-    android.hardware.wifi@1.2.vendor \
-    android.hardware.wifi@1.3.vendor \
-    android.hardware.wifi@1.4.vendor \
-    android.hidl.allocator@1.0.vendor \
-    android.hidl.memory.block@1.0.vendor \
     android.system.net.netd@1.0.vendor \
     android.system.net.netd@1.1.vendor \
-    android.system.wifi.keystore@1.0.vendor \
-    libstdc++_vendor \
-    vendor.qti.hardware.camera.device@1.0.vendor \
-    android.hardware.health.storage@1.0.vendor \
-    android.hardware.health@1.0.vendor \
-    android.hardware.health@2.0.vendor \
-    android.hardware.health@2.1.vendor \
-    android.hardware.power.stats@1.0.vendor
+    libstdc++_vendor 
 
-#Missing Libs
+# Missing Libs
 PRODUCT_PACKAGES += \
     libpng.vendor \
     libsqlite.vendor
