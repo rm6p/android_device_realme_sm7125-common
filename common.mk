@@ -413,9 +413,6 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/qcom-caf/common/libqti-perfd-client \
     vendor/qcom/opensource/usb/etc
 
-
-
-
 # Speed profile services and wifi-service to reduce RAM and storage
 PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
 PRODUCT_ALWAYS_PREOPT_EXTRACTED_APK := true
@@ -470,7 +467,9 @@ OVERRIDE_ENABLE_UFFD_GC := false
 
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.3-service.dual_role_usb 
+    android.hardware.usb@1.3-service.dual_role_usb \
+    android.hardware.usb.gadget-service.qti \
+    usb_compositions.conf
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
