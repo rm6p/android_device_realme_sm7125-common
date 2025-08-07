@@ -314,6 +314,9 @@ on property:sys.boot_completed=1
     setprop vendor.usb.dpl.inst.name "dpl"
     setprop vendor.usb.qdss.inst.name "qdss"
     setprop sys.usb.configfs 1
+    setprop vendor.usb.product_string ${ro.product.vendor.model}
+
+
 
 #start camera server as daemon
 #service qcamerasvr /system/bin/mm-qcamera-daemon

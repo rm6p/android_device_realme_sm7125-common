@@ -410,7 +410,10 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/google/pixel \
     hardware/lineage/interfaces/power-libperfmgr \
     hardware/oplus \
-    hardware/qcom-caf/common/libqti-perfd-client
+    hardware/qcom-caf/common/libqti-perfd-client \
+    vendor/qcom/opensource/usb/etc
+
+
 
 
 # Speed profile services and wifi-service to reduce RAM and storage

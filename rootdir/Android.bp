@@ -69,13 +69,6 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
-    name: "init.qcom.usb.rc",
-    src: "etc/vendor/init.qcom.usb.rc",
-    sub_dir: "init/hw",
-    vendor: true,
-}
-
-prebuilt_etc {
     name: "init.sm7125.rc",
     src: "etc/vendor/init.sm7125.rc",
     sub_dir: "init/hw",
@@ -162,12 +155,6 @@ sh_binary {
 sh_binary {
     name: "init.qcom.efs.sync.sh",
     src: "bin/init.qcom.efs.sync.sh",
-    vendor: true,
-}
-
-sh_binary {
-    name: "init.qcom.usb.sh",
-    src: "bin/init.qcom.usb.sh",
     vendor: true,
 }
 
